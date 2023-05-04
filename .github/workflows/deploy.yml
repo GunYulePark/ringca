@@ -45,9 +45,9 @@ jobs:
         
       - name: Generate Environment Variables File for Production
         run: |
-          echo "SECRET=$SECRET" >> /config/oauth/JwtProperties
-          echo "EXPIRATION_TIME=$EXPIRATION_TIME" >> /config/oauth/JwtProperties
-          echo "COOKIE_NAME=$COOKIE_NAME" >> /config/oauth/JwtProperties
+          echo "SECRET=$SECRET" >> /config/JwtProperties
+          echo "EXPIRATION_TIME=$EXPIRATION_TIME" >> /config/JwtProperties
+          echo "COOKIE_NAME=$COOKIE_NAME" >> /config/JwtProperties
         env:
           SECRET: ${{ secrets.SECRET }}
           EXPIRATION_TIME: ${{ secrets.EXPIRATION_TIME }}
