@@ -12,7 +12,7 @@ jobs:
     name: DEPLOY
     runs-on: ubuntu-latest
     env:
-          working-directory: ./ringcard_backend
+      working-directory: ./ringcard_backend
 
     steps:
       - name: Checkout
