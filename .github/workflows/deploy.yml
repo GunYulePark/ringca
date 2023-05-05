@@ -45,9 +45,9 @@ jobs:
         
       - name: Generate Environment Variables File for Production
         run: |
-          echo "SECRET=$SECRET" >> /home/runner/work/ringca/ringca/ringcard_backend/src/main/java/com/oneao/ringcard_backend/config/JwtProperties
-          echo "EXPIRATION_TIME=$EXPIRATION_TIME" >> /home/runner/work/ringca/ringca/ringcard_backend/src/main/java/com/oneao/ringcard_backend/config/JwtProperties
-          echo "COOKIE_NAME=$COOKIE_NAME" >> /home/runner/work/ringca/ringca/ringcard_backend/src/main/java/com/oneao/ringcard_backend/config/JwtProperties
+          echo "SECRET=$SECRET" >> /src/main/java/com/oneao/ringcard_backend/config/JwtProperties
+          echo "EXPIRATION_TIME=$EXPIRATION_TIME" >> /src/main/java/com/oneao/ringcard_backend/config/JwtProperties
+          echo "COOKIE_NAME=$COOKIE_NAME" >> /src/main/java/com/oneao/ringcard_backend/config/ringcard_backend/config/JwtProperties
         env:
           SECRET: ${{ secrets.SECRET }}
           EXPIRATION_TIME: ${{ secrets.EXPIRATION_TIME }}
