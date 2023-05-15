@@ -40,13 +40,15 @@ jobs:
         working-directory: ${{ env.working-directory }}
         shell: bash
       
-#       - name: Set GitHub token
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           echo "COOKIE_NAME=${secrets.COOKIE_NAME}" >> $GITHUB_ENV
-#           echo "SECRET=${secrets.SECRET}" >> $GITHUB_ENV
-#           echo "EXPIRATION_TIME=${secrets.EXPIRATION_TIME}" >> $GITHUB_ENV
+      - name: Set GitHub token
+        env:
+          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+          SECRET: ${{ secrets.SECRET }}
+          EXPIRATION_TIME: ${{ secrets.EXPIRATION_TIME }}
+        run: |
+          echo "COOKIE_NAME=${COOKIE_NAME}" >> $GITHUB_ENV
+          echo "SECRET=${SECRET}" >> $GITHUB_ENV
+          echo "EXPIRATION_TIME=${EXPIRATION_TIME}" >> $GITHUB_ENV
 
 #       - name: Grant execute permission for gradlew
 #         run: chmod +x gradlew
