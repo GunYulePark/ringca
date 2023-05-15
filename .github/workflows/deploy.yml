@@ -7,9 +7,6 @@ on:
 name: Deploy String boot to Amazon EC2
 env:
   PROJECT_NAME: ringca
-  COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
-  SECRET: ${{ secrets.SECRET }}
-  EXPIRATION_TIME: ${{ secrets.EXPIRATION_TIME }}
 
 jobs:
   deploy:
@@ -42,17 +39,14 @@ jobs:
         run: gradle build
         working-directory: ${{ env.working-directory }}
         shell: bash
-        
-      - name: Generate Environment Variables File for Production
-        run: |
-          echo "SECRET=$SECRET" >> /src/main/java/com/oneao/ringcard_backend/config/JwtProperties
-          echo "EXPIRATION_TIME=$EXPIRATION_TIME" >> /src/main/java/com/oneao/ringcard_backend/config/JwtProperties
-          echo "COOKIE_NAME=$COOKIE_NAME" >> /src/main/java/com/oneao/ringcard_backend/config/ringcard_backend/config/JwtProperties
-        env:
-          SECRET: ${{ secrets.SECRET }}
-          EXPIRATION_TIME: ${{ secrets.EXPIRATION_TIME }}
-          COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
-
+      
+#       - name: Set GitHub token
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: |
+#           echo "COOKIE_NAME=${secrets.COOKIE_NAME}" >> $GITHUB_ENV
+#           echo "SECRET=${secrets.SECRET}" >> $GITHUB_ENV
+#           echo "EXPIRATION_TIME=${secrets.EXPIRATION_TIME}" >> $GITHUB_ENV
 
 #       - name: Grant execute permission for gradlew
 #         run: chmod +x gradlew
