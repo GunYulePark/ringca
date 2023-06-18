@@ -28,7 +28,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserService userService;
 
-    //
+    String COOKIE_NAME = System.getenv("COOKIE_NAME");
+    String SECRET = System.getenv("SECRET");
+
     @Value("${myapp.github.token}")
     private String githubToken;
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
@@ -53,7 +55,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(JwtProperties.COOKIE_NAME)) {
+            if (cookie.getName().equals(COOKIE_NAME)) {
                 jwtToken = cookie.getValue();
             }
         }
@@ -64,7 +66,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         // jwt 토큰을 검증해서 정상적인 사용자인지 확인
-        String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(jwtToken).getClaim("username").asString();
+        String username = JWT.require(Algorithm.HMAC512(SECRET)).build().verify(jwtToken).getClaim("username").asString();
 
         // 서명이 정상적으로 됨
         if (username != null) {

@@ -30,6 +30,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
 
+    String COOKIE_NAME = System.getenv("COOKIE_NAME");
+    String EXPIRATION_TIME = System.getenv("EXPIRATION_TIME");
+    String SECRET = System.getenv("SECRET");
+
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         System.out.println("JwtAuthenticationFilter : 로그인 시도 중");
@@ -81,12 +86,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //RSA 방식은 아니고 Hash 암호 방식
         String jwtToken = JWT.create()
                 .withSubject("토큰토큰")
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .withClaim("id", principalDetails.getUser().getId())
                 .withClaim("username", principalDetails.getUser().getUsername())
-                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+                .sign(Algorithm.HMAC512(SECRET));
 
-        Cookie jwtCookie = new Cookie(JwtProperties.COOKIE_NAME, jwtToken);
+        Cookie jwtCookie = new Cookie(COOKIE_NAME, jwtToken);
         response.addCookie(jwtCookie);
 
     }

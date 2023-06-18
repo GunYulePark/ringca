@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;
 
+    String COOKIE_NAME = System.getenv("COOKIE_NAME");
+
 
     // 해당 메소드는 리턴되는 오브젝트를 IoC로 등록해준다.
     @Bean
@@ -77,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()
                 .logoutUrl("/logout")
 //                .logoutSuccessUrl("/loginForm").permitAll()
-                .deleteCookies(JwtProperties.COOKIE_NAME)
+                .deleteCookies(COOKIE_NAME)
                 .invalidateHttpSession(true)
                 .logoutSuccessHandler(new CustomLogoutSuccessHandler());
     }
