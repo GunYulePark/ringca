@@ -15,7 +15,4 @@ public class RingcardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RingcardApplication.class, args);
 	}
-
-
-
 }

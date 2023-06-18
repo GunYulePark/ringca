@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.oneao.ringcard_backend.config.auth.PrincipalDetails;
 import com.oneao.ringcard_backend.domain.user.User;
 import com.oneao.ringcard_backend.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,10 +23,14 @@ import java.io.IOException;
 // 시큐리티가 가지고 있는 BasicAuthenticationFilter
 // 권한이나 인증이 필요한 특정 주소를 요청했을 때, 위 필터를 무조건 타게 되어 있다.
 // 만약, 권한이나 인증이 필요한 주소가 아니라면 이 필터를 안 탄다.
+@PropertySource("classpath:application-github-action.properties")
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserService userService;
 
+    //
+    @Value("${myapp.github.token}")
+    private String githubToken;
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserService userService) {
         super(authenticationManager);
         this.userService = userService;
@@ -39,10 +45,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             chain.doFilter(request, response);
             return;
         }
+
         String jwtToken = null;
         if (cookies == null) {
             chain.doFilter(request, response);
-            return;}
+            return;
+        }
 
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(JwtProperties.COOKIE_NAME)) {
