@@ -11,7 +11,7 @@ env:
 jobs:
   deploy:
     name: DEPLOY
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       working-directory: ./ringcard_backend
       
